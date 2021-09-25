@@ -1,0 +1,32 @@
+:root {
+  --extra-small-size: .5rem;
+  --smal-size: 1rem;
+  --medium-size: 2rem;
+  --large-size: 3rem;
+  --extra-large-size: 5rem;
+
+  --extra-small-radius: 5px;
+  --small-radius: 30px;
+  --medium-radius: 50px;
+}
+
+body, html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Fira Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+  'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-color);
+  background: var(--background-color);
+  overflow-y: scroll;
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+}

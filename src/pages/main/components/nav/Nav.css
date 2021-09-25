@@ -1,0 +1,32 @@
+.BookstoreNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--smal-size);
+}
+
+.BookstoreNav a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.BookstoreNav h1 {
+    font-weight: 300;
+}
+
+.BookstoreNav__logo_strong {
+    padding: 5px;
+    font-weight: 900;
+    font-size: 130%;
+    color: var(--primary-color);
+}
+
+.BookstoreNav .Button {
+    display: flex;
+    align-items: center;
+}
+
+.BookstoreNav .Button .Icon {
+    margin-right: var(--extra-small-size);
+    font-size: 30px;
+}

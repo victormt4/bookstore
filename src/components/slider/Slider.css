@@ -1,0 +1,33 @@
+.Slider__content {
+    display: none;
+    background: var(--background-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    animation: fadeIn ease-out .3s;
+}
+
+@media (min-width: 768px) {
+    .Slider__content {
+        left: unset;
+        border-left: 1px solid var(--border-color);
+        box-shadow: var(--strong-box-shadow);
+    }
+}
+
+.Slider__content--show {
+    display: unset;
+}
+
+.Slider__header {
+    padding: var(--medium-size);
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--secondary-border-color);
+}
+
+.Slider__header_title {
+    margin: 0;
+}

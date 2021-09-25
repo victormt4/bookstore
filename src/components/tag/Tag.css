@@ -1,0 +1,13 @@
+.Tag {
+    display: inline-flex;
+    border-radius: var(--small-radius);
+    box-shadow: var(--light-box-shadow);
+    background: var(--primary-color);
+    color: var(--inverted-text-color);
+    width: var(--medium-size);
+    height: var(--medium-size);
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    font-weight: 900;
+}

@@ -1,0 +1,15 @@
+.Status {
+    padding: var(--large-size);
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.Status__img {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+}

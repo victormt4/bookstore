@@ -1,0 +1,23 @@
+.Pagination {
+    padding: var(--medium-size);
+    margin-bottom: var(--large-size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.Pagination .Button {
+    width: var(--medium-size);
+}
+
+.Pagination :is(.Button, .Pagination__sep) {
+    font-weight: bolder;
+    margin-right: var(--extra-small-size);
+}
+
+.Pagination__sep {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+}

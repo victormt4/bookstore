@@ -1,0 +1,20 @@
+.OutOfStockOverlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.OutOfStockOverlay__message {
+    display: flex;
+    align-items: center;
+    white-space: pre;
+    font-size: calc(var(--extra-small-size) * 3);
+    font-weight: bolder;
+}

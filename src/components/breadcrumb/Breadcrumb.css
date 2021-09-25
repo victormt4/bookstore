@@ -1,0 +1,15 @@
+.Breadcrumb {
+    display: flex;
+    align-items: center;
+}
+
+.Breadcrumb a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.Breadcrumb a:not(:last-child) {
+    font-weight: bolder;
+}
