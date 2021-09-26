@@ -6,7 +6,7 @@ import useCacheFilters from "./hooks/useCacheFilters";
 import HttpStatus from "../../utils/HttpStatus";
 import CategoryService from "../../services/category/CategoryService";
 import cloneDeep from "lodash.clonedeep";
-import TeraApi from "../../services/api/TeraApi";
+import Api from "../../services/api/Api";
 //Components
 import BookItem from "./components/bookItem/BookItem";
 import Input from "../../components/input/Input";
@@ -16,7 +16,7 @@ import Tag from "../../components/tag/Tag";
 import Icon from "../../components/icon/Icon";
 import EmptyStatus from "./components/emptyStatus/EmptyStatus";
 import RequestError from "../../components/fetchStatus/requestError/RequestError";
-import Pagination from "./components/pagination/Pagination";
+import Pagination from "../../components/pagination/Pagination";
 //Styles
 import './BookList.css';
 
@@ -89,7 +89,7 @@ export default function BookList(props) {
 
         setBooks(newBooks);
 
-        TeraApi.saveBookList(newBooks);
+        Api.saveBookList(newBooks);
     }
 
     function onInput(event) {

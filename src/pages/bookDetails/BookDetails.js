@@ -13,7 +13,7 @@ import Icon from "../../components/icon/Icon";
 import Button from "../../components/button/Button";
 //Styles
 import './BookDetails.css';
-import TeraApi from "../../services/api/TeraApi";
+import Api from "../../services/api/Api";
 
 export default function BookDetails(props) {
 
@@ -28,7 +28,7 @@ export default function BookDetails(props) {
         if (newBook.liked) newBook.likes += 1;
         else newBook.likes -= 1;
         setBook(newBook);
-        TeraApi.updateBook(newBook);
+        Api.updateBook(newBook);
     }
 
     useFetchBook(bookId, setBook, setStatus);

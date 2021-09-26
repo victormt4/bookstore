@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import Button from "../../../../components/button/Button";
-import Icon from "../../../../components/icon/Icon";
+import Button from "../button/Button";
+import Icon from "../icon/Icon";
 import './Pagination.css';
 
 export default function Pagination(props) {
@@ -9,7 +9,7 @@ export default function Pagination(props) {
 
     const contentLength = props.contentLength;
     const pageLength = props.pageLength;
-    const pageCount = Math.floor(contentLength / pageLength);
+    const pageCount = Math.ceil(contentLength / pageLength);
     const maxPageButtons = props.maxPageButtons;
 
     //Altere a página interna do component caso a página inicial seja alterada

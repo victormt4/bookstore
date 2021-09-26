@@ -9,9 +9,9 @@ const mockData = '[{"name":"Pele Negra, Máscaras Brancas","author":"Frantz Fano
  * Serviço com métodos para manipular os livros da API
  *
  * Teoricamente deveria ser feito em um backend, mas para efeitos de demonstração é feito em memória
- * @type {{getBooks: ((function(): Promise<Book[]>)|*), getBook: ((function((int|string)): Promise<Book|null>)|*), saveBookList: TeraApi.saveBookList, updateBook: TeraApi.updateBook}}
+ * @type {{getBooks: ((function(): Promise<Book[]>)|*), getBook: ((function((int|string)): Promise<Book|null>)|*), saveBookList: Api.saveBookList, updateBook: Api.updateBook}}
  */
-const TeraApi = {
+const Api = {
     /**
      * @param {boolean} useMockData
      * @return {Promise<Book[]>}
@@ -25,7 +25,7 @@ const TeraApi = {
         if (useMockData) {
             data = JSON.parse(mockData);
         } else {
-            const response = await fetch(process.env.REACT_APP_BOOKSTORE_API_URL);
+            const response = await fetch(`${process.env.REACT_APP_BOOKSTORE_API_URL}/books`);
             data = await response.json();
         }
 
@@ -87,4 +87,4 @@ const TeraApi = {
     }
 }
 
-export default TeraApi;
+export default Api;
