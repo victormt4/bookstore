@@ -25,7 +25,7 @@ const Api = {
         if (useMockData) {
             data = JSON.parse(mockData);
         } else {
-            const response = await fetch(`${process.env.REACT_APP_BOOKSTORE_API_URL}/books`);
+            const response = await fetch(`${process.env.REACT_APP_BOOKSTORE_API_URL}/product`);
             data = await response.json();
         }
 
@@ -36,7 +36,7 @@ const Api = {
             obj.name,
             obj.author,
             obj.category,
-            obj.cover_picture,
+            obj.picture,
             obj.description,
             obj.stock,
             Array.isArray(obj.users_who_liked) ? obj.users_who_liked.length : 0
