@@ -1,6 +1,14 @@
+import React from "react";
 import "./Button.css";
 
-export default function Button(props) {
+type Props = {
+    onClick: (event: React.MouseEvent) => void
+    children: React.ReactNode;
+    type?: string,
+    htmlType?: 'submit' | 'reset' | 'button',
+}
+
+export default function Button(props: Props): React.ReactElement {
 
     let classType = '';
 

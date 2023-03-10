@@ -1,12 +1,13 @@
+import React from "react";
 import "./Main.css";
 import {HashRouter, Route, Switch, Redirect} from "react-router-dom";
-import Nav from "./components/nav/Nav";
-import BookList from "../bookList/BookList";
-import BookDetails from "../bookDetails/BookDetails";
-import PageNotFound from "../pageNotFound/PageNotFound";
-import React from "react";
+import Nav from "pages/main/components/nav/Nav";
+import BookList from "pages/bookList/BookList";
+import BookDetails from "pages/bookDetails/BookDetails";
+import PageNotFound from "pages/pageNotFound/PageNotFound";
 
-function Main() {
+
+function Main(): React.ReactElement {
 
     return (
         <main>

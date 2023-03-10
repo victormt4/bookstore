@@ -1,10 +1,10 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import Button from "../../../../components/button/Button";
-import Icon from "../../../../components/icon/Icon";
+import Button from "components/button/Button";
+import Icon from "components/icon/Icon";
 import './Nav.css';
 
-export default function Nav() {
+export default function Nav(): React.ReactElement {
 
     const [nightMode, setNightMode] = useState(false);
 
