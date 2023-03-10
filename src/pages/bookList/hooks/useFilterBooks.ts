@@ -1,6 +1,7 @@
 import {useEffect} from "react";
 import cloneDeep from "lodash.clonedeep";
-import {ActiveFilters, FilterListFN} from "../types";
+import {FilterListFN} from "../types";
+import {ActiveFilters} from "services/bookFilter/types";
 import Book from "model/Book";
 import BookFilterService from "services/bookFilter/BookFilterService";
 

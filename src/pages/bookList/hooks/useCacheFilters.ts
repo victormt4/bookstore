@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {ActiveFilters} from "../types";
+import {ActiveFilters} from "services/bookFilter/types";
 
 export default function useCacheFilters(
     activeFilters: ActiveFilters,

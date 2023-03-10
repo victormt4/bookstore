@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import OrderTypes from "services/bookFilter/types/OrderTypes";
 import OtherFilterTypes from "services/bookFilter/types/OtherFilterTypes";
-import {ActiveFilters} from "../../types";
+import {ActiveFilters} from "services/bookFilter/types";
 import Button from "components/button/Button";
 import "./BookFilters.css";
 

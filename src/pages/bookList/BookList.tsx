@@ -10,7 +10,7 @@ import Api from "services/api/Api";
 //Types
 import Book from "model/Book";
 import FilteredListDTO from "services/bookFilter/dto/FilteredListDTO";
-import {ActiveFilters} from "./types";
+import {ActiveFilters} from "services/bookFilter/types";
 //Components
 import BookItem from "./components/bookItem/BookItem";
 import BookFilters from "./components/bookFilters/BookFilters";

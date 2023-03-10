@@ -1,10 +1,12 @@
 import OrderTypes from "./types/OrderTypes";
-import StringUtils from "../../utils/StringUtils";
 import OtherFilterTypes from "./types/OtherFilterTypes";
 import FilteredListDTO from "./dto/FilteredListDTO";
+import Book from "model/Book";
+import {ActiveFilters} from "./types";
+import StringUtils from "utils/StringUtils";
 
 const BookFilterService = {
-    orderBooks: function (orderType, books) {
+    orderBooks: function (orderType: string, books: Array<Book>): Array<Book> {
         let sortFunc = null;
         switch (orderType) {
             case OrderTypes.MOST_LIKED:
@@ -23,7 +25,7 @@ const BookFilterService = {
         return books.sort(sortFunc);
     },
 
-    filterBooks: function (filters, books) {
+    filterBooks: function (filters: ActiveFilters, books: Array<Book>): Array<Book> {
 
         let filterClosures = [];
 
@@ -80,7 +82,7 @@ const BookFilterService = {
         return books;
     },
 
-    applyOrderAndFilter: function (filters, books) {
+    applyOrderAndFilter: function (filters: ActiveFilters, books: Array<Book>): FilteredListDTO {
 
         if (filters.order) {
             books = this.orderBooks(filters.order, books);
