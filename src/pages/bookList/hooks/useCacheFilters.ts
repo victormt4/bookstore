@@ -1,11 +1,15 @@
 import {useEffect} from "react";
+import {ActiveFilters} from "../types";
 
-export default function useCacheFilters (activeFilters, setActiveFilters, setSearchTerm)
-{
+export default function useCacheFilters(
+    activeFilters: ActiveFilters,
+    setActiveFilters: (filters: ActiveFilters) => void,
+    setSearchTerm: (term: string) => void
+): void {
     //Efeito que limpa os filtros do sessionStorage ao dar refresh na pagina
     useEffect(() => {
 
-        function handler(event) {
+        function handler() {
             sessionStorage.removeItem('filters');
         }
 

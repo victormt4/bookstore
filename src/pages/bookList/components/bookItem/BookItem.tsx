@@ -1,10 +1,17 @@
+import React from "react";
 import {Link} from "react-router-dom";
-import Button from "../../../../components/button/Button";
-import Icon from "../../../../components/icon/Icon";
-import FallbackImage from "../../../../components/fallbackImage/FallbackImage";
+import Book from "model/Book";
+import Button from "components/button/Button";
+import Icon from "components/icon/Icon";
+import FallbackImage from "components/fallbackImage/FallbackImage";
 import "./BookItem.css";
 
-export default function BookItem(props) {
+type BookItmeProps = {
+    book: Book,
+    likeBook: (book: Book) => void
+}
+
+export default function BookItem(props: BookItmeProps) {
     return (
         <div className="BookItem">
             <div className="BookItem__containerImage">

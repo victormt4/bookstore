@@ -1,26 +1,30 @@
-//Libs/Services
-import {useState, useMemo} from "react";
+import React, {useMemo, useState} from "react";
+//Services
 import useFetchBooks from "./hooks/useFetchBooks";
 import useFilterBooks from "./hooks/useFilterBooks";
 import useCacheFilters from "./hooks/useCacheFilters";
-import HttpStatus from "../../utils/HttpStatus";
-import CategoryService from "../../services/category/CategoryService";
+import HttpStatus from "utils/HttpStatus";
+import CategoryService from "services/category/CategoryService";
 import cloneDeep from "lodash.clonedeep";
-import Api from "../../services/api/Api";
+import Api from "services/api/Api";
+//Types
+import Book from "model/Book";
+import FilteredListDTO from "services/bookFilter/dto/FilteredListDTO";
+import {ActiveFilters} from "./types";
 //Components
 import BookItem from "./components/bookItem/BookItem";
-import Input from "../../components/input/Input";
-import Slider from "../../components/slider/Slider";
 import BookFilters from "./components/bookFilters/BookFilters";
-import Tag from "../../components/tag/Tag";
-import Icon from "../../components/icon/Icon";
 import EmptyStatus from "./components/emptyStatus/EmptyStatus";
-import RequestError from "../../components/fetchStatus/requestError/RequestError";
-import Pagination from "../../components/pagination/Pagination";
+import Input from "components/input/Input";
+import Slider from "components/slider/Slider";
+import Tag from "components/tag/Tag";
+import Icon from "components/icon/Icon";
+import RequestError from "components/fetchStatus/requestError/RequestError";
+import Pagination from "components/pagination/Pagination";
 //Styles
 import './BookList.css';
 
-function FilterButtonText(props) {
+function FilterButtonText(props: { activeFilters: ActiveFilters }): React.ReactElement {
 
     let activeFiltersLength = 0;
 
@@ -34,33 +38,25 @@ function FilterButtonText(props) {
         <span className="BookList__slider_text">Filtros</span></span>
 }
 
-export default function BookList(props) {
+export default function BookList(): React.ReactElement {
 
-    const [booksStatus, setBooksStatus] = useState(HttpStatus.NOT_STARTED);
-    const [books, setBooks] = useState([]);
-    const [filteredBooks, setFilteredBooks] = useState(null);
+    const [booksStatus, setBooksStatus] = useState<number>(HttpStatus.NOT_STARTED);
+    const [books, setBooks] = useState<Array<Book>>([]);
+    const [filteredBooks, setFilteredBooks] = useState<FilteredListDTO>(null);
 
-    const [sliderActive, setSliderActive] = useState(false);
-    const [activeFilters, setActiveFilters] = useState({pageNumber: 1});
-    const [searchTerm, setSearchTerm] = useState('');
+    const [sliderActive, setSliderActive] = useState<boolean>(false);
+    const [activeFilters, setActiveFilters] = useState<ActiveFilters>({pageNumber: 1});
+    const [searchTerm, setSearchTerm] = useState<string>('');
 
-    //Extraindo as categorias dos livros para criar uma filtragem com melhor usabilidade
     const categories = useMemo(() => CategoryService.getUniqueCategoriesFromBooks(books), [books]);
 
-    function applyFilters(filters) {
-
-        //Fecha o Slider ao aplicar/resetar os filtros
+    function applyFilters(filters: ActiveFilters) {
         setSliderActive(false);
 
-        //Checando se algum filtro foi informado
         if (Object.keys(filters).length)
-            setActiveFilters(prevFilters => {
-                return {...prevFilters, ...filters}
-            });
-
-        //Caso contrário sete os filtros ativos para em branco
+            setActiveFilters(prevFilters => ({...prevFilters, ...filters}));
         else {
-            let newActiveFilters = {};
+            let newActiveFilters: ActiveFilters = {};
             //Mantenha o filtro por nome ativo caso ele seja definido
             if (activeFilters.searchTerm && activeFilters.searchTerm.length)
                 newActiveFilters.searchTerm = activeFilters.searchTerm;
@@ -71,9 +67,7 @@ export default function BookList(props) {
         }
     }
 
-    function likeBook(updatedBook) {
-
-        //Atualizando o contador de likes do livro imutavelmente
+    function likeBook(updatedBook: Book) {
         const newBooks = cloneDeep(books);
 
         let book = newBooks.find(book => book.id === updatedBook.id);
@@ -92,18 +86,13 @@ export default function BookList(props) {
         applyFilters({searchTerm: event.target.value.replace(/^\s+/gi, ''), pageNumber: 1});
     }
 
-    function setCurrentPage(pageNumber) {
+    function setCurrentPage(pageNumber: number) {
         applyFilters({pageNumber: pageNumber})
     }
 
-    //Hook para buscar os livros da API
     useFetchBooks(setBooksStatus, setBooks, setFilteredBooks);
-    //Hook que filtra/ordena a lista de livros ao alterar os filtros ativos
     useFilterBooks(setFilteredBooks, activeFilters, books);
-    //Hook que armazena e aplica os filtros no cache
     useCacheFilters(activeFilters, setActiveFilters, setSearchTerm);
-
-    const booksToShow = filteredBooks !== null && filteredBooks !== undefined && filteredBooks.list.length > 0;
 
     return (
         <section className="BookList">
@@ -118,23 +107,47 @@ export default function BookList(props) {
                     <BookFilters defaultFilters={activeFilters} applyFilters={applyFilters} categories={categories}/>
                 </Slider>
             </div>
-            {HttpStatus.done(booksStatus) && booksToShow &&
+            <BooksOrHttpStatus
+                filteredBooks={filteredBooks}
+                bookStatus={booksStatus}
+                activeFilters={activeFilters}
+                likeBook={likeBook}
+                setCurrentPage={setCurrentPage}
+            />
+        </section>
+    )
+}
+
+type BooksOrHttpStatusProps = {
+    filteredBooks?: FilteredListDTO,
+    bookStatus: number,
+    activeFilters: ActiveFilters,
+    likeBook: (book: Book) => void,
+    setCurrentPage: (page: number) => void
+}
+
+function BooksOrHttpStatus(props: BooksOrHttpStatusProps): React.ReactElement {
+
+    const booksToShow = props.filteredBooks !== null && props.filteredBooks !== undefined && props.filteredBooks.list.length > 0;
+
+    if (HttpStatus.done(props.bookStatus) && booksToShow) {
+        return (
             <>
-                {filteredBooks.list.map(book => <div key={book.id} className="BookList__item">
-                    <BookItem likeBook={likeBook} book={book}/>
+                {props.filteredBooks.list.map(book => <div key={book.id} className="BookList__item">
+                    <BookItem likeBook={props.likeBook} book={book}/>
                 </div>)}
                 <Pagination
-                    onSetPage={setCurrentPage}
-                    initialPage={activeFilters.pageNumber}
-                    contentLength={filteredBooks.totalCount}
+                    onSetPage={props.setCurrentPage}
+                    initialPage={props.activeFilters.pageNumber}
+                    contentLength={props.filteredBooks.totalCount}
                     pageLength={8}
                     maxPageButtons={5}
                 />
-            </>}
-            {HttpStatus.done(booksStatus) === true && !booksToShow &&
-            <EmptyStatus title="Nenhum livro encontrado" text="Tente utilizar outros filtros"/>}
-            {HttpStatus.waiting(booksStatus) === true && <span className="BookList__loading">Carregando...</span>}
-            {HttpStatus.anyError(booksStatus) === true && <RequestError/>}
-        </section>
-    )
+            </>
+        )
+    }
+
+    if (HttpStatus.done(props.bookStatus) && !booksToShow) return <EmptyStatus title="Nenhum livro encontrado" text="Tente utilizar outros filtros"/>
+    if (HttpStatus.anyError(props.bookStatus)) return <RequestError/>
+    return <span className="BookList__loading">Carregando...</span>
 }

@@ -1,14 +1,21 @@
-import {useEffect, useState} from "react";
-import OrderTypes from "../../../../services/bookFilter/types/OrderTypes";
-import OtherFilterTypes from "../../../../services/bookFilter/types/OtherFilterTypes";
-import Button from "../../../../components/button/Button";
+import React, {useEffect, useState} from "react";
+import OrderTypes from "services/bookFilter/types/OrderTypes";
+import OtherFilterTypes from "services/bookFilter/types/OtherFilterTypes";
+import {ActiveFilters} from "../../types";
+import Button from "components/button/Button";
 import "./BookFilters.css";
 
-export default function BookFilters(props) {
+type BookFiltersProps = {
+    defaultFilters: ActiveFilters,
+    applyFilters: (filters: ActiveFilters) => void,
+    categories: Array<string>
+}
 
-    const [order, setOrder] = useState(null);
-    const [categories, setCategories] = useState([]);
-    const [others, setOthers] = useState([]);
+export default function BookFilters(props: BookFiltersProps) {
+
+    const [order, setOrder] = useState<string | null>(null);
+    const [categories, setCategories] = useState<Array<string>>([]);
+    const [others, setOthers] = useState<Array<string>>([]);
 
     //Efeito que carrega os filtros padrão
     useEffect(() => {
@@ -20,7 +27,7 @@ export default function BookFilters(props) {
 
     function applyFilters() {
 
-        let filters = {};
+        let filters: ActiveFilters = {};
 
         filters.order = order;
         filters.categories = categories;
@@ -30,39 +37,25 @@ export default function BookFilters(props) {
         props.applyFilters(filters);
     }
 
-    function toggleOrder(orderType) {
+    function toggleOrder(orderType: string) {
         if (orderType === order) setOrder(null);
         else setOrder(orderType);
     }
 
-    function toggleCategories(categoryType) {
+    function toggleCategories(categoryType: string) {
         setCategories(prevCategories => {
-
             let newCategories = [...prevCategories];
-
-            //Adicionando ou removendo a categoria das categorias selecionadas
-            if (newCategories.includes(categoryType)) {
-                newCategories = newCategories.filter(category => category !== categoryType);
-            } else {
-                newCategories.push(categoryType);
-            }
-
+            if (newCategories.includes(categoryType)) newCategories = newCategories.filter(category => category !== categoryType);
+            else newCategories.push(categoryType);
             return newCategories;
         })
     }
 
-    function toggleOther(otherType) {
+    function toggleOther(otherType: string) {
         setOthers(prevOthers => {
-
             let newOthers = [...prevOthers];
-
-            //Adicionando ou removendo a categoria das categorias selecionadas
-            if (newOthers.includes(otherType)) {
-                newOthers = newOthers.filter(other => other !== otherType);
-            } else {
-                newOthers.push(otherType);
-            }
-
+            if (newOthers.includes(otherType)) newOthers = newOthers.filter(other => other !== otherType);
+            else newOthers.push(otherType);
             return newOthers;
         })
     }
