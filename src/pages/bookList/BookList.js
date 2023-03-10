@@ -47,9 +47,6 @@ export default function BookList(props) {
     //Extraindo as categorias dos livros para criar uma filtragem com melhor usabilidade
     const categories = useMemo(() => CategoryService.getUniqueCategoriesFromBooks(books), [books]);
 
-    /**
-     * @param {Object} filters
-     */
     function applyFilters(filters) {
 
         //Fecha o Slider ao aplicar/resetar os filtros
@@ -74,9 +71,6 @@ export default function BookList(props) {
         }
     }
 
-    /**
-     * @param {Book} updatedBook
-     */
     function likeBook(updatedBook) {
 
         //Atualizando o contador de likes do livro imutavelmente

@@ -4,12 +4,6 @@ import OtherFilterTypes from "./types/OtherFilterTypes";
 import FilteredListDTO from "./dto/FilteredListDTO";
 
 const BookFilterService = {
-    /**
-     * Ordena uma lista de livros de acordo com o tipo da ordenação
-     * @param {String} orderType
-     * @param {Book[]} books
-     * @return {Book[]}
-     */
     orderBooks: function (orderType, books) {
         let sortFunc = null;
         switch (orderType) {
@@ -29,17 +23,8 @@ const BookFilterService = {
         return books.sort(sortFunc);
     },
 
-    /**
-     * Filtra os litros checando todos os filtros ao mesmo tempo
-     * @param {Object} filters
-     * @param {Book[]} books
-     * @return {Book[]}
-     */
     filterBooks: function (filters, books) {
 
-        /**
-         * @type {function[]}
-         */
         let filterClosures = [];
 
         //Criando uma closure para filtrar os litros pelo nome
@@ -95,12 +80,6 @@ const BookFilterService = {
         return books;
     },
 
-    /**
-     * Aplica os filtros e ordena a lista de livros
-     * @param {Object} filters
-     * @param {Book[]} books
-     * @return {FilteredListDTO}
-     */
     applyOrderAndFilter: function (filters, books) {
 
         if (filters.order) {

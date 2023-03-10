@@ -30,19 +30,11 @@ export default function BookFilters(props) {
         props.applyFilters(filters);
     }
 
-    /**
-     * Remove ou adiciona uma ordenação
-     * @param {String} orderType
-     */
     function toggleOrder(orderType) {
         if (orderType === order) setOrder(null);
         else setOrder(orderType);
     }
 
-    /**
-     * Remove ou adiciona uma categoria na filtragem
-     * @param {String} categoryType
-     */
     function toggleCategories(categoryType) {
         setCategories(prevCategories => {
 
@@ -59,10 +51,6 @@ export default function BookFilters(props) {
         })
     }
 
-    /**
-     * Remove ou adiciona um filtro geral na filtragem
-     * @param {String} otherType
-     */
     function toggleOther(otherType) {
         setOthers(prevOthers => {
 
