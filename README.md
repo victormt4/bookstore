@@ -2,10 +2,6 @@
 
 Aplicação web feita em ReactJS e CRA (Create React App) para listagem de livros.
 
-## Disponível em
-
-[https://bookstore-vmt.herokuapp.com/](https://bookstore-vmt.herokuapp.com/)
-
 ## Comandos para rodar projeto
 
 ### `npm install`
