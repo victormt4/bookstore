@@ -10,14 +10,14 @@ const BookFilterService = {
         let sortFunc = null;
         switch (orderType) {
             case OrderTypes.MOST_LIKED:
-                sortFunc = function (bookA, bookB) {
+                sortFunc = function (bookA: Book, bookB: Book): number {
                     if (bookA.likes > bookB.likes) return -1;
                     else if (bookA.likes < bookB.likes) return 1;
                     else return 0;
                 }
                 break;
             case OrderTypes.ALPHABETICAL:
-                sortFunc = (bookA, bookB) => bookA.name.localeCompare(bookB.name)
+                sortFunc = (bookA: Book, bookB: Book) => bookA.name.localeCompare(bookB.name)
                 break;
             default:
                 throw new Error('Invalid sort order');
@@ -27,11 +27,11 @@ const BookFilterService = {
 
     filterBooks: function (filters: ActiveFilters, books: Array<Book>): Array<Book> {
 
-        let filterClosures = [];
+        let filterClosures: Array<(book: Book) => boolean> = [];
 
         //Criando uma closure para filtrar os litros pelo nome
         if (filters.searchTerm) {
-            filterClosures.push(function (book) {
+            filterClosures.push(function (book: Book) {
 
                 if (!filters.searchTerm.length) return true;
 

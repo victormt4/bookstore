@@ -8,7 +8,7 @@ const HttpStatus = {
     serverError: function (status: number): boolean {
         return status >= 500 && status < 600;
     },
-    anyError: function (status) {
+    anyError: function (status: number) {
         return this.requestError(status) || this.serverError(status);
     },
     waiting: function (status: Array<number> | number) {

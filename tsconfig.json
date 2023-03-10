@@ -3,7 +3,8 @@
     "baseUrl": "src",
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
-    "target": "ES2016"
+    "noImplicitAny": true,
+    "target": "ES2016",
   },
   "include": ["src"]
 }

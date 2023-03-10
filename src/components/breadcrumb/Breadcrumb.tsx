@@ -3,7 +3,16 @@ import {Link} from "react-router-dom";
 import Icon from "../icon/Icon";
 import './Breadcrumb.css';
 
-export default function Breadcrumb(props): React.ReactElement {
+type Crumb = {
+    path: string,
+    text: string
+}
+
+type BreadcrumbProps = {
+    crumbs: Array<Crumb>
+}
+
+export default function Breadcrumb(props: BreadcrumbProps): React.ReactElement {
     return (
         <nav className="Breadcrumb">
             {props.crumbs.map((crumb, index) => {
