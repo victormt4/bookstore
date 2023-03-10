@@ -1,7 +1,8 @@
-import Icon from "../../../components/icon/Icon";
+import React from "react";
+import Icon from "components/icon/Icon";
 import './OutOfStockOverlay.css';
 
-export default function OutOfStockOverlay() {
+export default function OutOfStockOverlay(): React.ReactElement {
     return (
         <div className="OutOfStockOverlay">
             <span className="OutOfStockOverlay__message">
