@@ -1,6 +1,13 @@
+import React from 'react';
 import './Status.css';
 
-export default function Status(props) {
+type StatusProps = {
+    img: string,
+    title: string,
+    text?: string
+}
+
+export default function Status(props: StatusProps): React.ReactElement {
     return (
         <section className="Status">
             <img className="Status__img" src={props.img} alt={props.title}/>

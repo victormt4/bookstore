@@ -1,19 +1,25 @@
-import "./Slider.css";
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import Button from "../button/Button";
+import "./Slider.css";
 
-export default function Slider(props) {
+type SliderProps = {
+    title: React.ReactNode,
+    children: React.ReactNode,
+    btnText?: React.ReactNode,
+    active?: boolean,
+    setActive?: (fn: (active: boolean) => boolean) => void
+}
+
+export default function Slider(props: SliderProps): React.ReactElement {
 
     const [active, setActive] = useState(props.active !== undefined ? props.active : false);
 
-    //Efeito para abrir/fechar o Slider caso ele seja controlado por um componente pai
     useEffect(() => {
         if (props.active !== undefined) {
             setActive(props.active);
         }
     }, [props.active])
 
-    //Efeito que esconde a barra de rolagem ao ativar o Slider
     useEffect(() => {
 
         if (active) document.body.style.overflowY = 'hidden';
@@ -21,8 +27,6 @@ export default function Slider(props) {
 
     }, [active])
 
-    //Habilita ou desabilita o Slider
-    //Caso ele seja controlado pelo elemento pai, é necessário usar o props.setActive ao invés do setActive local
     function toggleActive() {
         if (props.setActive !== undefined) props.setActive(prevActive => !prevActive);
         else setActive(prevState => !prevState);

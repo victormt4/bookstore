@@ -80,7 +80,7 @@ export default function BookList(): React.ReactElement {
         Api.saveBookList(newBooks);
     }
 
-    function onInput(event) {
+    function onInput(event: React.ChangeEvent<HTMLInputElement>) {
         const value = event.target.value;
         setSearchTerm(value);
         applyFilters({searchTerm: event.target.value.replace(/^\s+/gi, ''), pageNumber: 1});
