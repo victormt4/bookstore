@@ -8,14 +8,14 @@ const HttpStatus = {
     serverError: function (status: number): boolean {
         return status >= 500 && status < 600;
     },
-    anyError: function (status: number) {
+    anyError: function (status: number): boolean {
         return this.requestError(status) || this.serverError(status);
     },
-    waiting: function (status: Array<number> | number) {
+    waiting: function (status: Array<number> | number): boolean {
         if (Array.isArray(status)) return status.some(status => status === this.WAITING)
-        else return HttpStatus === this.WAITING;
+        else return status === this.WAITING;
     },
-    done: function (status: Array<number> | number) {
+    done: function (status: Array<number> | number): boolean {
         if (Array.isArray(status)) return status.some(status => status === 200);
         return status === 200;
     }

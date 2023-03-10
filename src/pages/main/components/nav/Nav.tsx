@@ -12,11 +12,11 @@ export default function Nav(): React.ReactElement {
         setNightMode(prevNightMode => !prevNightMode);
     }
 
-    //Efeito que ativa/desativa o modo noturno
-    useEffect(() => {
-
+    function toggleTagsForNightMode(nightMode: boolean): void {
         let metaTag = document.getElementById('meta-tag-theme-color');
         let htmlTag = document.querySelector('html');
+
+        if (!metaTag) return
 
         if (nightMode) {
             htmlTag.classList.add('Nightmode');
@@ -25,7 +25,10 @@ export default function Nav(): React.ReactElement {
             htmlTag.classList.remove('Nightmode');
             metaTag.setAttribute('content', '#F7F7F7');
         }
-    }, [nightMode])
+    }
+
+    //Efeito que ativa/desativa o modo noturno
+    useEffect(() => toggleTagsForNightMode(nightMode), [nightMode])
 
     return (
         <nav className="BookstoreNav">
