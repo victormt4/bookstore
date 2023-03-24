@@ -5,6 +5,7 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "target": "ES2016",
+    "moduleResolution": "Node"
   },
-  "include": ["src"]
+  "include": ["src"],
 }

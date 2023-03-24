@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
   - deploy
 
 .assume_role: &assume_role
@@ -15,7 +16,7 @@ stages:
     - export AWS_SECRET_ACCESS_KEY="${STS[1]}"
     - export AWS_SESSION_TOKEN="${STS[2]}"
 
-build artifact:
+build:
   stage: build
   image: node:18.15.0
   before_script:
@@ -27,8 +28,16 @@ build artifact:
       - build/
     when: always
 
-deploy s3:
+test-unit:
+  stage: test
+  image: node:18.15.0
+  before_script:
+    - npm install
+  script: npm run test
+
+deploy:
   stage: deploy
+  needs: [build]
   image:
     name: amazon/aws-cli:latest
     entrypoint:
@@ -37,5 +46,5 @@ deploy s3:
     - *assume_role
     - aws s3 sync build/ s3://$S3_BUCKET
   rules:
-    - if: '$CI_COMMIT_REF_NAME == "master"'
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: always
